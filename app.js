@@ -10,26 +10,30 @@ app.use(parser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8080);
 
 
-app.post('/auth', function(request, response) {
-	var username = request.body.username;
-	var password = request.body.password;
-	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND pass = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
+app.get('/verUsers', (req, res, next) => {
+    const client = new pg.Client(conString);
+    client.connect(function (err) {
+        if (err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({
+                success: false,
+                data: err
+            });
+        }
 
+        client.query('SELECT * FROM persona', function (err, result) {
+            if (err) {
+                return console.error('error running query', err);
+            }
+            console.log(result);
+            client.end();
+
+            return res.json(result.rows);
+
+        });
+    });
+
+});
 app.post('/createUser', (req, res) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
