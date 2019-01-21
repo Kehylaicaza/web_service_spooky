@@ -21,7 +21,7 @@ app.get('/verUsers', (req, res, next) => {
             });
         }
 
-        client.query('SELECT * FROM persona', function (err, result) {
+        client.query('SELECT * FROM usuario', function (err, result) {
             if (err) {
                 return console.error('error running query', err);
             }
