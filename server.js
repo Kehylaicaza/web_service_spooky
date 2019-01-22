@@ -32,5 +32,4 @@ app.use(express.static('public'));
 app.use(permitirCrossDomain);
 
 
-app.get('/', (req, res) => res.send('Hello World!'));
-
+ 
