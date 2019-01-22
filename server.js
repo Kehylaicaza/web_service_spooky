@@ -33,105 +33,10 @@ app.use(permitirCrossDomain);
 
 
 app.get('/', function(req, res){
-   res.redirect('/verUsers');
+  res.send('hello world');
 });
+
 
 
 app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
 
-app.get('/verUsers', (req, res, next) => {
-    const client = new pg.Client(conString);
-    client.connect(function (err) {
-        if (err) {
-            return console.error('could not connect to postgres', err);
-            return res.status(500).json({
-                success: false,
-                data: err
-            });
-        }
-
-        client.query('SELECT * FROM usuario', function (err, result) {
-            if (err) {
-                return console.error('error running query', err);
-            }
-            console.log(result);
-            client.end();
-
-            return res.json(result.rows);
-
-        });
-    });
-
-});
-app.post('/createUser', (req, res) => {
-    var client = new pg.Client(conString);
-    client.connect(function(err) {
-        if(err) {
-            return console.error('could not connect to postgres', err);
-            return res.status(500).json({success: false, data: err});
-        }
-        
-        console.log("prueba"+util.inspect(req,false,null));
-        
-        client.query("INSERT INTO  usuario  (name,usuario,pass,sexo,edad,contacto) VALUES ('"+req.body.name+"', '"+req.body.user+"', '"+req.body.pass+"', '"+req.body.sexo+"', '"+req.body.edad+"', '"+req.body.contacto"');", function(err, result) {
-            if(err) {
-                return console.error('error running query', err);
-            }
-        
-          
-            client.end();
-            return res.json(result.rows);
-            
-        });
-        
-    });
-});
-
-app.put('/updateUser,(req,res)=>{
-    var client = new pg.Client(conString);
-    var id=req.body.id;
-    
-    client.connect(function(err) {
-        if(err) {
-            return console.error('could not connect to postgres', err);
-            return res.status(500).json({success: false, data: err});
-        }
-  
-        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"', edad='"+req.body.edad+"', pass='"+req.body.pass+"', contacto='"+req.body.contacto+"',sexo='"+req.body.sexo+"' WHERE id='" + id + "';", function(err, result) {
-            
-            if(err) {
-                  return console.error('error running query', err);
-            }
-            
-            //console.log(result);
-            client.end();
-            return res.json(result);
-        });
-     });
-});
-
-
-app.delete('/deleteUser',(req,res)=>{
-    var client = new pg.Client(conString);
-    var id=req.body.id;
-  
-    client.connect(function(err) {
-       if(err) {
-           return console.error('could not connect to postgres', err);
-           return res.status(500).json({success: false, data: err});
-       }
-
-       client.query('DELETE FROM usuario WHERE id=' + id + ';', function(err, result) {
-          
-           if(err) {
-               return console.error('error running query', err);
-           }
-          
-           //console.log(result);
-            client.end();
-           return res.json(result);
-       });
-   });
-  
-  
-});
