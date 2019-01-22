@@ -13,9 +13,7 @@ var http = require('http'),
     util = require('util'),
     fs   = require('fs-extra');
 function permitirCrossDomain(req, res, next) {
-  //en vez de * se puede definir SÓLO los orígenes que permitimos
   res.header('Access-Control-Allow-Origin', '*'); 
-  //metodos http permitidos para CORS
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); 
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
@@ -80,4 +78,4 @@ app.post('/createUser', (req, res) => {
     });
 });
  
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
