@@ -16,7 +16,7 @@ app.set('port', process.env.PORT || 8080);
 
 
 app.get('/', function (req, res, next) {
-    pg.connect(connectionString,function(err,client,done) {
+    pg.connect(conString,function(err,client,done) {
       if (err) {
             return console.error('could not connect to postgres', err);
             return res.status(500).json({
