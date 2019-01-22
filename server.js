@@ -31,7 +31,7 @@ app.use(enterCD);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-
+ app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
 
 app.get('/verUsers', (req, res, next) => {
     const client = new pg.Client(conString);
