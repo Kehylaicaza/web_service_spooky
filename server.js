@@ -12,7 +12,8 @@ var http = require('http'),
     formidable = require('formidable'),
     util = require('util'),
     fs   = require('fs-extra');
-function permitirCrossDomain(req, res, next) {
+
+function enterCD(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*'); 
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); 
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -25,7 +26,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use(express.static('public'));
-app.use(permitirCrossDomain);
+app.use(enterCD);
 
 
 app.get('/', (req, res) => res.send('Hello World!'));
@@ -69,7 +70,7 @@ app.post('/createUser', (req, res) => {
                 return console.error('error running query', err);
             }
         
-            //console.log(result);
+          
             client.end();
             return res.json(result.rows);
             
@@ -94,7 +95,7 @@ app.put('/actualizarInformacion',(req,res)=>{
                   return console.error('error running query', err);
             }
             
-            //console.log(result);
+           
             client.end();
             return res.json(result);
         });
