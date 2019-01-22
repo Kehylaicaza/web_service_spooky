@@ -36,7 +36,7 @@ app.use(permitirCrossDomain);
 app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
 
 
-app.get('/', (req, res) => res.send('Hello World!'));
+
 
 app.get('/verUsers', (req, res, next) => {
     const client = new pg.Client(conString);
