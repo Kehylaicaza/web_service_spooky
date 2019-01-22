@@ -83,7 +83,7 @@ app.post('/createUser', (req, res) => {
     });
 });
 
-app.put('/actualizarInformacion',(req,res)=>{
+app.put('/updateUser,(req,res)=>{
     var client = new pg.Client(conString);
     var id=req.body.id;
     
@@ -93,19 +93,18 @@ app.put('/actualizarInformacion',(req,res)=>{
             return res.status(500).json({success: false, data: err});
         }
   
-        client.query("UPDATE usuario SET edad='"+req.body.edad+"' WHERE id='" + id + "';", function(err, result) {
+        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"', edad='"+req.body.edad+"', pass='"+req.body.pass+"', contacto='"+req.body.contacto+"',sexo='"+req.body.sexo+"' WHERE id='" + id + "';", function(err, result) {
             
             if(err) {
                   return console.error('error running query', err);
             }
             
-           
+            //console.log(result);
             client.end();
             return res.json(result);
         });
      });
 });
-
 
 
 app.delete('/deleteUser',(req,res)=>{
