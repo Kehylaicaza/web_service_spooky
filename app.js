@@ -20,13 +20,15 @@ app.get('/', function (req, res, next) {
             });
         }
        client.query('SELECT * FROM usuario where id = $1', [1],function(err,result) {
-           done(); // closing the connection;
-           if(err){
-               console.log(err);
-               res.status(400).send(err);
-           }
-           res.status(200).send(result.rows);
-       });
+           if (err) {
+                return console.error('error running query', err);
+            }
+            console.log(result);
+            client.end();
+
+            return res.json(result.rows);
+
+        });
     });
 });
 
