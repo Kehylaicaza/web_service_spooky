@@ -7,8 +7,7 @@ var multer = require('multer');
 const pg    = require('pg');
 
 pg.defaults.ssl = true;
-
-var conString = "postgres://uhylhutdyevcbs:e6283c49398c23069debbac422b5c6326f63821f71d0f59d5c93672bfa9b98cc@ec2-54-235-68-3.compute-1.amazonaws.com:5432/dfmd7unrd6bl2t";
+var conString = "postgres://lfginsenmkkkri:4ac5d7ee37cb823610577318946c21e64f5db453e3aaa7b0f14221b2983bf92a@ec2-54-235-68-3.compute-1.amazonaws.com:5432/d9ms119o8u5lqi";
 
 var express = require('express');
 var http = require('http'),
@@ -31,9 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use(express.static('public'));
 app.use(permitirCrossDomain);
-
-
-app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
 
 
 app.get('/', (req, res) => res.send('Hello World!'));
