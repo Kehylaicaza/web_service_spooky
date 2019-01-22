@@ -12,10 +12,13 @@ app.set('port', process.env.PORT || 8080);
 
 app.get('/', function (req, res, next) {
     pg.connect(connectionString,function(err,client,done) {
-       if(err){
-           console.log("not able to get connection "+ err);
-           res.status(400).send(err);
-       } 
+      if (err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({
+                success: false,
+                data: err
+            });
+        }
        client.query('SELECT * FROM usuario where id = $1', [1],function(err,result) {
            done(); // closing the connection;
            if(err){
