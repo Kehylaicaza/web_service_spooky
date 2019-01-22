@@ -78,6 +78,30 @@ app.post('/createUser', (req, res) => {
     });
 });
 
+app.put('/actualizarInformacion',(req,res)=>{
+    var client = new pg.Client(conString);
+    var id=req.body.id;
+    
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+  
+        client.query("UPDATE usuario SET edad='"+req.body.edad+"' WHERE id='" + id + "';", function(err, result) {
+            
+            if(err) {
+                  return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result);
+        });
+     });
+});
+
+
 
 app.delete('/deleteUser',(req,res)=>{
     var client = new pg.Client(conString);
