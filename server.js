@@ -100,8 +100,30 @@ app.put('/updateUser',(req,res)=>{
         });
     });
 });
-
-app.delete('/eliminarUsuario',(req,res)=>{
+app.post('/SaveUser', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        
+        console.log("miau "+util.inspect(req,false,null));
+        
+        client.query("INSERT INTO  usuario  (name,usuario,pass,edad,sexo,contacto) VALUES ('"+req.body.name+"', '"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.edad+"', '"+req.body.sexo+"', '"+req.body.contacto+"');", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+        
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+        });
+        
+    });
+});
+app.delete('/deleteUser',(req,res)=>{
     var client = new pg.Client(conString);
     var id=req.body.id;
 
