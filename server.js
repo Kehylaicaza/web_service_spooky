@@ -100,5 +100,31 @@ app.put('/updateUser',(req,res)=>{
         });
     });
 });
+
+app.delete('/eliminarUsuario',(req,res)=>{
+    var client = new pg.Client(conString);
+    var id=req.body.id;
+
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+    
+        client.query('DELETE FROM usuario WHERE id=' + id + ';', function(err, result) {
+            
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+                client.end();
+            return res.json(result);
+        });
+    });
+
+
+});
+
 app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
 
