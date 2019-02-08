@@ -88,7 +88,7 @@ app.put('/updateUser',(req,res)=>{
             return res.status(500).json({success: false, data: err});
         }
 
-        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"', pass='"+req.body.pass+"',edad='"+req.body.edad+"',contacto='"+req.body.contacto+"',sexo='"+req.body.sexo+"', sexo='"+req.body.sexo+"' WHERE id='" + id + "';", function(err, result) {
+        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"', pass='"+req.body.pass+"',edad='"+req.body.edad+"',peso='"+req.body.peso+"',altura='"+req.body.altura+"', sexo='"+req.body.sexo+"' WHERE id='" + id + "';", function(err, result) {
             
             if(err) {
                 return console.error('error running query', err);
@@ -110,7 +110,7 @@ app.post('/SaveUser', (req, res) => {
         
         console.log("miau "+util.inspect(req,false,null));
         
-        client.query("INSERT INTO  usuario  (name,usuario,pass,edad,sexo,contacto) VALUES ('"+req.body.name+"', '"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.edad+"', '"+req.body.sexo+"', '"+req.body.contacto+"');", function(err, result) {
+        client.query("INSERT INTO  usuario  (name,usuario,pass,edad,sexo,peso,altura) VALUES ('"+req.body.name+"', '"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.edad+"', '"+req.body.sexo+"', '"+req.body.peso+"', '"+req.body.altura+"');", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
