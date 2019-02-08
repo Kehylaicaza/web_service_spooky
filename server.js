@@ -108,9 +108,9 @@ app.post('/SaveUser', (req, res) => {
             return res.status(500).json({success: false, data: err});
         }
         
-        console.log("miau "+util.inspect(req,false,null));
+        console.log("ouch "+util.inspect(req,false,null));
         
-        client.query("INSERT INTO  usuario  (name,usuario,pass,edad,sexo,peso,altura) VALUES ('"+req.body.name+"', '"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.edad+"', '"+req.body.sexo+"', '"+req.body.peso+"', '"+req.body.altura+"');", function(err, result) {
+        client.query("INSERT INTO  usuario  (name,usuario,pass,edad,sexo,peso,altura,calorias) VALUES ('"+req.body.name+"', '"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.edad+"', '"+req.body.sexo+"', '"+req.body.peso+"', '"+req.body.altura+"','"+req.body.calorias+"');", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
