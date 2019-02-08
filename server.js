@@ -88,7 +88,7 @@ app.put('/updateUser',(req,res)=>{
             return res.status(500).json({success: false, data: err});
         }
 
-        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"', pass='"+req.body.pass+"',edad='"+req.body.edad+"',peso='"+req.body.peso+"',altura='"+req.body.altura+"', sexo='"+req.body.sexo+"' WHERE id='" + id + "';", function(err, result) {
+        client.query("UPDATE usuario SET name='"+req.body.name+"', usuario='"+req.body.usuario+"',  pass='"+req.body.pass+"',  usuario='"+req.body.usuario+"', sexo='"+req.body.sexo+"',edad='"+req.body.edad+"',peso='"+req.body.peso+"',altura='"+req.body.altura+"', calorias='"+req.body.calorias+"' WHERE id='" + id + "';", function(err, result) {
             
             if(err) {
                 return console.error('error running query', err);
